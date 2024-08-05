@@ -19,10 +19,6 @@
 
     public interface ITodoService
     {
-        Todo AddTodo(string title);
-        Todo DeleteTodo(Guid id);
-        Todo[] GetTodos();
-        Todo GetTodoById(Guid id);
-        Todo UpdateStatus(Guid id, bool status);
+
     }
 }

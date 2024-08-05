@@ -19,71 +19,32 @@ namespace TodoRestApi.Controllers
         [HttpGet("todos")]
         public Todo[] GetTodos()
         {
-            try
-            {
-                return _todoService.GetTodos();
-            }
-            catch (BadHttpRequestException ex)
-            {
-                _logger.LogError(ex, "An error occurred while getting the todo by id.");
-                throw new BadHttpRequestException(ex.Message);
-            }
+            var todos = new List<Todo>();
+            return todos.ToArray();
         }
 
         [HttpGet("todos/{guid}")]
         public Todo GetTodoById(Guid guid)
         {
-            try
-            {
-                return _todoService.GetTodoById(guid);
-            }
-            catch (BadHttpRequestException ex)
-            {
-                _logger.LogError(ex, "An error occurred while getting the todo by id.");
-                throw new BadHttpRequestException(ex.Message);
-            }
+            return new Todo("dsfg");
         }
 
         [HttpPost("todos")]
         public Todo AddTodo([FromBody] CreateTodoDto body)
         {
-            try
-            {
-                return _todoService.AddTodo(body.Title);
-            }
-            catch (BadHttpRequestException ex)
-            {
-                _logger.LogError(ex, "An error occurred while adding a new todo.");
-                throw new BadHttpRequestException(ex.Message);
-            }
+            return new Todo("dsfg");
         }
 
         [HttpPut("todos/{guid}")]
         public Todo UpdateTodo(Guid guid, [FromBody] UpdateStatusDto body)
         {
-            try
-            {
-                return _todoService.UpdateStatus(guid, body.IsCompleted);
-            }
-            catch (BadHttpRequestException ex)
-            {
-                _logger.LogError(ex, "An error occurred while updating the todo.");
-                throw new BadHttpRequestException(ex.Message);
-            }
+            return new Todo("dsfg");
         }
 
         [HttpDelete("todos/{guid}")]
         public Todo DeleteTodo(Guid guid)
         {
-            try
-            {
-                return _todoService.DeleteTodo(guid);
-            }
-            catch (BadHttpRequestException ex)
-            {
-                _logger.LogError(ex, "An error occurred while deleting the todo.");
-                throw new BadHttpRequestException(ex.Message);
-            }
+            return new Todo("dsfg");
         }
     }
 }
