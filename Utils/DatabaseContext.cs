@@ -22,16 +22,13 @@ namespace TodoRestApi.Utils
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Дополнительная конфигурация моделей (если необходимо)
             base.OnModelCreating(modelBuilder);
 
-            // Например, настройка таблиц и отношений:
             modelBuilder.Entity<Todo>(entity =>
             {
-                entity.ToTable("Todos"); // Указывает имя таблицы
-                entity.HasKey(e => e.Id); // Указывает первичный ключ
+                entity.ToTable("Todos");
+                entity.HasKey(e => e.Id);
 
-                // Дополнительная настройка полей:
                 entity.Property(e => e.Title).IsRequired();
                 entity.Property(e => e.IsCompleted).IsRequired();
             });

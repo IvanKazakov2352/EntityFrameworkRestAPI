@@ -1,4 +1,6 @@
-﻿namespace TodoRestApi.interfaces
+﻿using System.Text.Json.Serialization;
+
+namespace TodoRestApi.interfaces
 {
     public class Todo(string title)
     {
@@ -12,13 +14,18 @@
         public string Title { get; set; } = title;
     }
 
-    public class UpdateStatusDto(bool status)
+    public class UpdateTodoDto(string title, bool isCompleted)
     {
-        public bool IsCompleted { get; set; } = status;
+        public string Title { get; set; } = title;
+        public bool IsCompleted { get; set; } = isCompleted;
     }
 
     public interface ITodoService
     {
-
+        Task<Todo> AddTodo(string title);
+        Task<Todo[]> GetTodos();
+        Task<Todo> GetTodoById(Guid id);
+        Task<Todo> DeleteTodo(Guid id);
+        Task<Todo> UpdateTodoStatus(Guid id, UpdateTodoDto body);
     }
 }

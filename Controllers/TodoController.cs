@@ -17,34 +17,79 @@ namespace TodoRestApi.Controllers
         }
 
         [HttpGet("todos")]
-        public Todo[] GetTodos()
+        public async Task<Todo[]> GetTodos()
         {
-            var todos = new List<Todo>();
-            return todos.ToArray();
-        }
+            try
+            {
+                var todos = await _todoService.GetTodos();
+                return todos;
+            }
+            catch (Exception ex) 
+            {
+                _logger.LogError(ex.ToString());
+                throw new Exception(ex.ToString());
+            }
 
-        [HttpGet("todos/{guid}")]
-        public Todo GetTodoById(Guid guid)
-        {
-            return new Todo("dsfg");
         }
 
         [HttpPost("todos")]
-        public Todo AddTodo([FromBody] CreateTodoDto body)
+        public async Task<Todo> AddTodo([FromBody] CreateTodoDto body)
         {
-            return new Todo("dsfg");
+            try
+            {
+                var todo = await _todoService.AddTodo(body.Title);
+                return todo;
+            } catch (KeyNotFoundException ex)
+            {
+                _logger.LogError(ex.ToString());
+                throw new KeyNotFoundException(ex.ToString());
+            }
         }
 
-        [HttpPut("todos/{guid}")]
-        public Todo UpdateTodo(Guid guid, [FromBody] UpdateStatusDto body)
+        [HttpGet("todos/{id}")]
+        public async Task<Todo> GetTodoById(Guid id)
         {
-            return new Todo("dsfg");
+            try
+            {
+                var todo = await _todoService.GetTodoById(id);
+                return todo;
+            }
+            catch (KeyNotFoundException ex)
+            {
+                _logger.LogError(ex.ToString());
+                throw new KeyNotFoundException(ex.ToString());
+            }
+
         }
 
-        [HttpDelete("todos/{guid}")]
-        public Todo DeleteTodo(Guid guid)
+        [HttpDelete("todos/{id}")]
+        public async Task<Todo> DeleteTodo(Guid id)
         {
-            return new Todo("dsfg");
+            try
+            {
+                var todo = await _todoService.DeleteTodo(id);
+                return todo;
+            }
+            catch(KeyNotFoundException ex)
+            {
+                _logger.LogError(ex.ToString());
+                throw new KeyNotFoundException(ex.ToString());
+            }
+        }
+
+        [HttpPut("todos/{id}")]
+        public async Task<Todo> UpdateTodoStatus(Guid id, [FromBody] UpdateTodoDto body)
+        {
+            try
+            {
+                var todo = await _todoService.UpdateTodoStatus(id, body);
+                return todo;
+            }
+            catch (KeyNotFoundException ex)
+            {
+                _logger.LogError(ex.ToString());
+                throw new KeyNotFoundException(ex.ToString());
+            }
         }
     }
 }
